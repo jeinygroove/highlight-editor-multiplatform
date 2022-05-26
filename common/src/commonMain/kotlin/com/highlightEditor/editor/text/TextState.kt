@@ -37,8 +37,8 @@ class TextState(
     fun findSentenceByOffset(offset: Int): Int {
         return sentences.binarySearch { s ->
             if (s.range.contains(offset)) 0
-            else if (s.range.first > offset) -1
-            else 1
+            else if (s.range.first > offset) 1
+            else -1
         }
     }
 
@@ -48,6 +48,8 @@ class TextState(
         println(documentModel.elements)
         val newChangeIntRange = IntRange(changeRange.first, changeRange.first + textFix.length - 1)
         println(newChangeIntRange)
+        println(sentences)
+        println("SENTENCE: ${changeRange?.first?.let { findSentenceByOffset(it) }}, ${changeRange?.last?.let { findSentenceByOffset(it) }}")
         documentModel.addElement(DocumentElement(type, textFix, newChangeIntRange))
         text = newTextFieldValue.copy(annotatedString = documentModel.getContent())
         sentences = SentenceTokenizer.tokenizeText(text.text).also { println(it) }
@@ -78,6 +80,8 @@ class TextState(
             }
             }
         }
+        println(sentences)
+        println("SENTENCE: ${changeRange?.first?.let { findSentenceByOffset(it) }}, ${changeRange?.last?.let { findSentenceByOffset(it) }}")
         prevSelection = newSelection
         text = newTextFieldValue.copy(annotatedString = documentModel.getContent())
         sentences = SentenceTokenizer.tokenizeText(text.text).also { println(it) }
