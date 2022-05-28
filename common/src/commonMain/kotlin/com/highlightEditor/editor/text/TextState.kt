@@ -63,9 +63,10 @@ class TextState(
         // means that we typed (or deleted smth)
         if (newTextFieldValue.text != text.text) {
             println("check ${prevSelection.length} $prevSelection ${newSelection}")
-            if (prevSelection.length != 0 && newSelection.length == 0) {
+            if (prevSelection.length != 0) {
                 documentModel.removeRange(IntRange(prevSelection.min, prevSelection.max - 1))
                 val newRange = IntRange(prevSelection.min, newSelection.min - 1)
+                println("kekkke $newRange ${newTextFieldValue.text.substring(newRange)}")
                 documentModel.addElement(DocumentElement(type, newTextFieldValue.text.substring(newRange), newRange))
             } else {
             val diffInLengths = newTextFieldValue.text.length - text.text.length

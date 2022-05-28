@@ -120,7 +120,7 @@ internal actual fun CodeEditorImpl(
                                 editorState.textState.getPositionForTextRange(
                                     IntRange(el.offset, el.offset + el.length - 1)
                                 )?.let {
-                                    editorState.backgroundDrawer.drawWithFocus(
+                                    editorState.underlineDrawer.drawWithFocus(
                                         it.map { el -> el.copy(-editorState.scrollState.value.toFloat()) },
                                         this,
                                         diagnosticState.diagnosticPopupState.diagnosticElement == el

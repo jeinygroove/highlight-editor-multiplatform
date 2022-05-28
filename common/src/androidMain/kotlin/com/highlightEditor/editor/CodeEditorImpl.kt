@@ -1,10 +1,5 @@
 package com.highlightEditor.editor
 
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.forEachGesture
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -22,10 +17,7 @@ import com.highlightEditor.editor.diagnostics.DiagnosticInfo
 import com.highlightEditor.editor.diagnostics.DiagnosticState
 import com.highlightEditor.editor.docTree.DocumentType
 import com.highlightEditor.fork.gestures.*
-import com.highlightEditor.fork.gestures.detectTapAndPress
-import com.highlightEditor.fork.text.fastAll
 import com.highlightEditor.fork.text.timeNowMillis
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -130,7 +122,7 @@ internal actual fun CodeEditorImpl(
                                 editorState.textState.getPositionForTextRange(
                                     IntRange(el.offset, el.offset + el.length - 1)
                                 )?.let {
-                                    editorState.backgroundDrawer.draw(
+                                    editorState.underlineDrawer.draw(
                                         it.map { el -> el.copy(-editorState.scrollState.value.toFloat()) }, this
                                     )
                                 }
