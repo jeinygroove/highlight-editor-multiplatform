@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import com.highlightEditor.editor.text.Position
 
-class BackgroundDrawer(
+class UnderlineDrawer(
     private val backgroundColor: Color? = null,
     private val borderColor: Color? = null,
     zIndex: Int
@@ -72,7 +72,7 @@ class BackgroundDrawer(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
 
-        other as BackgroundDrawer
+        other as UnderlineDrawer
 
         if (backgroundColor != other.backgroundColor) return false
         if (borderColor != other.borderColor) return false

@@ -5,6 +5,7 @@ import ai.grazie.gec.cloud.CloudGECAggregatedCorrection
 import ai.grazie.nlp.langs.Language
 import com.highlightEditor.editor.diagnostics.DiagnosticElement
 import com.highlightEditor.editor.diagnostics.TextAnalyzer
+import com.highlightEditor.editor.text.Sentence
 import com.intellij.grazie.client.common.GrazieHTTPClient
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -55,15 +56,22 @@ class GrazieTextAnalyzer: TextAnalyzer {
         )
     }
 
-    override suspend fun analyze(text: String): List<DiagnosticElement> {
-        val res = correction.correct(listOf(text)).getOrNull(0) ?: return listOf()
-        val diagnosticElements = res.corrections.toList().map { it ->
-            DiagnosticElement(
-                offset = it.errorRange.start,
-                length = it.errorRange.length,
-                message = it.message,
-                suggestions = it.replacements.toList()
-            )
+    override suspend fun analyze(text: List<Sentence>): List<DiagnosticElement> {
+        val res = correction.correct(text.map { it.text })
+        var indx = 0
+        println("REQUEST $text")
+        val diagnosticElements = mutableListOf<DiagnosticElement>()
+        res.forEach { corr ->
+            val offset = text[indx].range.first
+            indx++
+            corr.corrections.toList().forEach { it ->
+                diagnosticElements.add(DiagnosticElement(
+                    offset = it.errorRange.start + offset,
+                    length = it.errorRange.length,
+                    message = it.message,
+                    suggestions = it.replacements.toList()
+                ))
+            }
         }
         println("DIAG")
         return diagnosticElements

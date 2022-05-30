@@ -1,5 +1,6 @@
 import com.highlightEditor.editor.diagnostics.DiagnosticElement
 import com.highlightEditor.editor.diagnostics.TextAnalyzer
+import com.highlightEditor.editor.text.Sentence
 
 import io.ktor.client.*
 import kotlinx.serialization.Serializable
@@ -27,7 +28,7 @@ class AnalyzeError(
 )
 
 class SampleTextAnalyzer(private val client: HttpClient): TextAnalyzer {
-    override suspend fun analyze(text: String): List<DiagnosticElement> {
+    override suspend fun analyze(text: List<Sentence>): List<DiagnosticElement> {
         // TODO Don't forget to replace "KEY" with the real one
         val response: AnalyzeResponse? = try {
             AnalyzeResponse("", AnalyzeResult("kek", listOf(AnalyzeError("", 2, 2, "spell error", listOf("am", "was", "have been"), "no type"))))

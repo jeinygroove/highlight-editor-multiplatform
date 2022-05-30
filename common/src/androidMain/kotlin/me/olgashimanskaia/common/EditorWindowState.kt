@@ -94,9 +94,10 @@ class EditorWindowState(
                 diagnosticInProcess = true
                 diagnosticInfo.diagnosticStart = timeNowMillis()
                 val text = _editorState.textState.text.text
+                val sentences = _editorState.textState.sentences
                 var diagnostic: List<DiagnosticElement> = listOf()
                 try {
-                    diagnostic = application.analyzer.analyze(text)
+                    diagnostic = application.analyzer.analyze(sentences)
                     diagnosticInfo.hasInternetConnection = true
                 } catch (e: Exception) {
                     println(e.message)
@@ -124,7 +125,7 @@ class EditorWindowState(
 
     private suspend fun _setText(value: TextFieldValue) {
         val changeRange = _editorState.textState.updateText(value)
-        val diagnostic = application.analyzer.analyze(value.text)
+        val diagnostic = application.analyzer.analyze(_editorState.textState.sentences)
         diagnosticState.updateList(diagnostic)
     }
 

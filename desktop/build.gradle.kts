@@ -33,7 +33,6 @@ kotlin {
                 implementation("ai.grazie.gec:gec-agg-cloud-engine-jvm:0.2.12")
                 implementation("ai.grazie.nlp:nlp-langs:0.2.12")
                 implementation("ai.grazie.nlp:nlp-tokenizer-jvm:0.2.12")
-                implementation("ai.grazie.docs:docs-format-grazie:0.2.13")
             }
         }
         val jvmTest by getting

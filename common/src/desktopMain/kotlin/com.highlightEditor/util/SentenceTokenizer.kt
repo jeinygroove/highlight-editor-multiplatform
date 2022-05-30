@@ -30,16 +30,20 @@ actual object SentenceTokenizer {
         var newText = text
 
         for (rule in this.rules) {
-            newText = newText.replace(rule.regex, "\uE001")
+            rule.regex.findAll(newText).toList().map {
+                newText = newText.replaceRange(it.range, "\uE001".repeat(it.range.step + 1))
+            }
         }
 
-        val sentencesContent = newText.split(Regex("\uE001"))
         val sentences = mutableListOf<Sentence>()
         var indx = 0
-        for (s in sentencesContent) {
-            sentences.add(Sentence(s, IntRange(indx, indx + s.length)))
-            indx += s.length + 1
+        Regex("\uE001+").findAll(newText).toList().map { match ->
+            val sRange = IntRange(indx, match.range.first - 1)
+            sentences.add(Sentence(newText.substring(sRange), sRange))
+            indx = match.range.last + 1
         }
+        val sRange = IntRange(indx, newText.length-1)
+        sentences.add(Sentence(newText.substring(sRange), sRange))
         return sentences
     }
 
