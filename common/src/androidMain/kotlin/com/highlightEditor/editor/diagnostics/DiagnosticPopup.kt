@@ -31,9 +31,8 @@ actual fun DiagnosticPopup(
 ) {
     val diagnosticElement = diagnosticState.diagnosticPopupState.diagnosticElement
     if (diagnosticElement != null) {
-        println(diagnosticState.diagnosticPopupState.placement)
         Popup(
-            offset = diagnosticState.diagnosticPopupState.placement.let{ it.copy(y = it.y + 120 + 60 /*offsetTop.toInt()*/ - editorState.scrollState.value, x = it.x + 60) },
+            offset = diagnosticState.diagnosticPopupState.placement.let{ it.copy(y = it.y + 120 + 140 /*offsetTop.toInt()*/ - editorState.scrollState.value, x = it.x + 60) },
             onDismissRequest = diagnosticState.diagnosticPopupState::hide
         ) {
             Surface(
@@ -61,6 +60,7 @@ actual fun DiagnosticPopup(
                                         it
                                     )
                                     handleTextChange(editorState.textState.text.copy(text = v, selection = TextRange(range.first + it.length)), range, it)
+                                    diagnosticState.diagnosticPopupState.hide()
                                 }),
                             color = Color(6, 69, 173)
                         )
