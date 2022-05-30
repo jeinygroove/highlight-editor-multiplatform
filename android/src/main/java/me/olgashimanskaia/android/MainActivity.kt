@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
+import com.highlightEditor.GrazieTextAnalyzer
 import me.olgashimanskaia.common.App
-import me.olgashimanskaia.common.GrazieTextAnalyzer
 import me.olgashimanskaia.common.rememberApplicationState
 
 class MainActivity : AppCompatActivity() {
