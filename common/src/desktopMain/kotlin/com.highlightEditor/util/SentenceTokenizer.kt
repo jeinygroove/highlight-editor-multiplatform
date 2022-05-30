@@ -31,7 +31,7 @@ actual object SentenceTokenizer {
 
         for (rule in this.rules) {
             rule.regex.findAll(newText).toList().map {
-                newText = newText.replaceRange(it.range, "\uE001".repeat(it.range.step + 1))
+                newText = newText.replaceRange(it.range, "\uE001".repeat(it.value.length))
             }
         }
 
