@@ -220,7 +220,7 @@ class DocumentModel {
                 DocumentType.TEXT -> elem.value
                 DocumentType.HEADER -> "\\section*{${elem.value}}"
                 DocumentType.LINK -> "\\url{${elem.value}]}"
-                DocumentType.LIST -> "\\item ${elem.value}\n"
+                DocumentType.LIST -> "\\item ${elem.value.substring(3)}\n"
             }
             prevElemType = elem.type
         }

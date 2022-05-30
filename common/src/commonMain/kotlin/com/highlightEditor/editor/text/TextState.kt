@@ -5,13 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.toOffset
 import com.highlightEditor.editor.docTree.DocumentElement
@@ -28,7 +26,6 @@ class TextState(
     text: TextFieldValue
 ) : TextRangesHelper {
     var text by mutableStateOf(text)
-    var visualTransformation by mutableStateOf<TransformedText>(TransformedText(text.annotatedString, OffsetMapping.Identity))
     var textLayoutResult by mutableStateOf<TextLayoutResult?>(null)
     private var prevSelection: TextRange = text.selection
     var documentModel: DocumentModel = DocumentModel()
